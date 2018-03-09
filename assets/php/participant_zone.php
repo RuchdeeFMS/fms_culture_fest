@@ -146,7 +146,7 @@ class Participant_Zone {
 
     // update all_zones
     function update_all_zones() {
-        $query = "SELECT * FROM " . $this->table_name . " WHERE id = '" . $this->id . "' and zone_2 = 1 and zone_3 = 1 and zone_4 = 1 and zone_5 = 1 and zone_6 = 1";
+        $query = "SELECT * FROM " . $this->table_name . " WHERE id = '" . $this->id . "' and zone_2 = 1 and zone_3 = 1 and zone_4 = 1 and zone_5 = 1 and zone_6 = 1 and zone_7 = 1 zone_8 = 1";
         $result = mysqli_query($this->conn, $query);
         if ($row = mysqli_fetch_array($result)) {
             // update all_zones
