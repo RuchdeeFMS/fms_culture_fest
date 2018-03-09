@@ -17,7 +17,7 @@
         <link href="https://fonts.googleapis.com/css?family=Athiti|Sriracha&amp;subset=thai" rel="stylesheet">
         <style>
             h1 { font-family: 'Sriracha', cursive; }
-            h2, h3, button, p { font-family: 'Athiti', sans-serif; }
+            h2, h3, button, p, .btn { font-family: 'Athiti', sans-serif; }
         </style>
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -78,7 +78,7 @@
 			                        	<label class="sr-only" for="form-password">Password</label>
 			                        	<input type="password" name="form-password" placeholder="Password..." class="form-password form-control" id="form-password">
 			                        </div>
-			                        <button type="submit" class="btn">ลงทะเบียน (Sign In)</button>
+			                        <button type="submit" class="btn btn-primary">ลงทะเบียน (Sign In)</button>
 			                    </form>
 		                    </div>
                         </div>

@@ -50,7 +50,7 @@
         <link href="https://fonts.googleapis.com/css?family=Athiti|Sriracha&amp;subset=thai" rel="stylesheet">
         <style>
             .logo-main { font-family: 'Sriracha', cursive; }
-            p, span, h2, h3, button { font-family: 'Athiti', sans-serif; }
+            p, span, h2, h3, h4, button { font-family: 'Athiti', sans-serif; }
         </style>
 
 
@@ -100,7 +100,7 @@
                                 if ($row['all_zones']) {
                                     echo "<h3>ขอแสดงความยินดี! คุณได้เข้าร่วมกิจกรรมครบทุกโซนแล้ว</h3>";
                                     echo "<h3>ขั้นตอนสุดท้าย คลิกปุ่มด้านล่างเพื่อประเมินกิจกรรม</h3>";
-                                    echo "<button class='btn btn-primary btn-lg' onclick=''>คลิกเพื่อประเมินกิจกรรม</button>";
+                                    echo "<button class='btn btn-primary btn-lg' id='btnEval' data-toggle='modal' data-target='#evaluation-form'>ประเมินกิจกรรม</button>";
                                 }
                             ?>
                             <!-- <span><i class="fa fa-thumbs-o-up fa-5x" style="color:green;"></i>
@@ -238,6 +238,28 @@
             </div>
         </div>
 
+        <!-- Modal -->
+        <div id="evaluation-form" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">แบบประเมินกิจกรรมออนไลน์</h4>
+              </div>
+              <form role="form" action="error.php" method="post">
+                <div class="modal-body">
+                  <p>Some text in the modal.</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-default" id="btnSubmit">ส่งแบบประเมิน</button>
+                </div>
+              </form>
+
+            </div>
+          </div>
+        </div>
+
 
         <!-- Javascript -->
         <script src="assets/js/jquery-1.11.1.min.js"></script>
@@ -249,6 +271,7 @@
         <!--[if lt IE 10]>
             <script src="assets/js/placeholder.js"></script>
         <![endif]-->
+
 
     </body>
 
