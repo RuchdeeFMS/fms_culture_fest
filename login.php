@@ -1,3 +1,11 @@
+<?php
+    session_start();
+
+    if (isset($_SESSION['username'])) {
+        header("Location: index.php?zone=1&scanned=1");
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

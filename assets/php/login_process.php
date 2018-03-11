@@ -38,8 +38,7 @@
 
 								header("Location: ../../scan_qr.php?zone=1");
 						}
-				}
-				else {
+				} else {
 						//redirect('index.php','refresh');
 						header("Location: ../../login.php?error=1");
 				}

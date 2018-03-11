@@ -94,13 +94,17 @@
                                 if ($isScanned) {
                                     echo "<h2>คุณได้เข้าร่วมกิจกรรมโซน " . $zone_no . " แล้ว</h2>";
                                 }
-                                if ($isCompleted) {
+                                if ($isCompleted && $zone_no != 9) {
                                     echo "<h2>ขอบคุณสำหรับการเข้าร่วมกิจกรรมโซน " . $zone_no . "</h2>";
+                                } elseif ($isCompleted && $zone_no == 9) {
+                                    echo "<h2>ขอบคุณสำหรับการประเมินกิจกรรมตลาดนัดวัฒนธรรม</h2>";
                                 }
-                                if ($row['all_zones']) {
+                                if ($row['all_zones'] && $zone_no != 9) {
                                     echo "<h3>ขอแสดงความยินดี! คุณได้เข้าร่วมกิจกรรมครบทุกโซนแล้ว</h3>";
                                     echo "<h3>ขั้นตอนสุดท้าย คลิกปุ่มด้านล่างเพื่อประเมินกิจกรรม</h3>";
                                     echo "<button class='btn btn-primary btn-lg' id='btnEval' data-toggle='modal' data-target='#evaluation-form'>ประเมินกิจกรรม</button>";
+                                } elseif ($row['all_zones'] && $zone_no == 9) {
+                                    echo "<h3>ขอแสดงความยินดี! คุณจะได้รับทรานสคิปต์จากการเข้าร่วมกิจกรรม 6 ชั่วโมง</h3>";
                                 }
                             ?>
                             <!-- <span><i class="fa fa-thumbs-o-up fa-5x" style="color:green;"></i>
@@ -223,12 +227,9 @@
             </div> -->
             <div class="row">
                 <div class="col-sm-12 social">
-                    <a href="#" data-toggle="tooltip" data-placement="top" title="Facebook"><i class="fa fa-facebook"></i></a>
-                    <a href="#" data-toggle="tooltip" data-placement="top" title="Twitter"><i class="fa fa-twitter"></i></a>
-                    <a href="#" data-toggle="tooltip" data-placement="top" title="Dribbble"><i class="fa fa-dribbble"></i></a>
-                    <a href="#" data-toggle="tooltip" data-placement="top" title="Google Plus"><i class="fa fa-google-plus"></i></a>
-                    <a href="#" data-toggle="tooltip" data-placement="top" title="Pinterest"><i class="fa fa-pinterest"></i></a>
-                    <a href="#" data-toggle="tooltip" data-placement="top" title="FMS Website"><i class="fa fa-at"></i></a>
+                    <a href="https://www.facebook.com/fmspsu/" data-toggle="tooltip" data-placement="top" title="Facebook" target="_blank"><i class="fa fa-facebook"></i></a>
+                    <a href="https://www.youtube.com/channel/UCJgr5jHOOx9HCf6nG4lZbAg" data-toggle="tooltip" data-placement="top" title="YouTube" target="_blank"><i class="fa fa-youtube"></i></a>
+                    <a href="http://www.fms.psu.ac.th/" data-toggle="tooltip" data-placement="top" title="FMS Website" target="_blank"><i class="fa fa-at"></i></a>
                 </div>
             </div>
             <div class="row">

@@ -43,7 +43,7 @@
             $participant_zone->zone = 1;
             if (!$participant_zone->create()) {
                 // insert error (participant_zone)
-                header("Location: error.php?error_no=2");
+                header("Location: error.php?error_no=3");
             } else {
                 // 4. update zone, timestamp, latitude, and longitude in participants_zones table
                 if ($zone_no != 1) {
@@ -53,7 +53,7 @@
                         header("Location: index.php?zone=" . $zone_no . "&completed=1");
                     } else {
                         // update error
-                        header("Location: error.php?error_no=3");
+                        header("Location: error.php?error_no=4");
                     }
                 } else {
                     // back to main page & notify with just-scanned zone msg
@@ -62,7 +62,7 @@
             }
         } else {
             // insert error (participant)
-            header("Location: error.php?error_no=1");
+            header("Location: error.php?error_no=2");
         }
     } else {
         // 6. check whether zone's qr code is already scanned
@@ -77,7 +77,7 @@
                 header("Location: index.php?zone=" . $zone_no . "&completed=1");
             } else {
                 // update error
-                header("Location: error.php?error_no=4");
+                header("Location: error.php?error_no=5");
             }
         }
     }
