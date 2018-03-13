@@ -36,11 +36,18 @@
 								$_SESSION['username'] = $tName;
 								$_SESSION['id_card'] = $id_card;
 
-								header("Location: ../../scan_qr.php?zone=1");
+								if (isset($_REQUEST["zone"])) {
+										header("Location: ../../scan_qr.php?zone=" . $_REQUEST["zone"]);
+										exit;
+								} else {
+										header("Location: ../../scan_qr.php?zone=0");
+										exit;
+								}
 						}
 				} else {
 						//redirect('index.php','refresh');
 						header("Location: ../../login.php?error=1");
+						exit;
 				}
 ?>
 

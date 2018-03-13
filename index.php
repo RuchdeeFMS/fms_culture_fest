@@ -3,6 +3,7 @@
 
     if (!isset($_SESSION['username'])) {
         header("Location: login.php");
+        exit;
     }
 
     $id = $_SESSION['id_card'];
@@ -91,11 +92,21 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <?php
-                                if ($isScanned) {
+                                if ($isScanned && $zone_no == 0) {
+                                    echo "<h2>คุณได้ลงทะเบียนเรียบร้อยแล้ว</h2>";
+                                } elseif ($isScanned && $zone_no <= 4) {
                                     echo "<h2>คุณได้เข้าร่วมกิจกรรมโซน " . $zone_no . " แล้ว</h2>";
+                                } elseif ($isScanned && $zone_no > 4 && $zone_no < 9) {
+                                    $czone = $zone_no - 1;
+                                    echo "<h2>คุณได้เข้าร่วมกิจกรรมโซน " . $czone . " แล้ว</h2>";
                                 }
-                                if ($isCompleted && $zone_no != 9) {
+                                if ($isCompleted && $zone_no == 0) {
+                                    echo "<h2>ขอบคุณสำหรับการเข้าร่วมกิจกรรมตลาดนัดวัฒนธรรม</h2>";
+                                } elseif ($isCompleted && $zone_no <= 4) {
                                     echo "<h2>ขอบคุณสำหรับการเข้าร่วมกิจกรรมโซน " . $zone_no . "</h2>";
+                                } elseif ($isCompleted && $zone_no > 4 && $zone_no < 9) {
+                                    $czone = $zone_no - 1;
+                                    echo "<h2>ขอบคุณสำหรับการเข้าร่วมกิจกรรมโซน " . $czone . "</h2>";
                                 } elseif ($isCompleted && $zone_no == 9) {
                                     echo "<h2>ขอบคุณสำหรับการประเมินกิจกรรมตลาดนัดวัฒนธรรม</h2>";
                                 }
@@ -104,15 +115,25 @@
                                     echo "<h3>ขั้นตอนสุดท้าย คลิกปุ่มด้านล่างเพื่อประเมินกิจกรรม</h3>";
                                     echo "<button class='btn btn-primary btn-lg' id='btnEval' data-toggle='modal' data-target='#evaluation-form'>ประเมินกิจกรรม</button>";
                                 } elseif ($row['all_zones'] && $zone_no == 9) {
-                                    echo "<h3>ขอแสดงความยินดี! คุณจะได้รับทรานสคิปต์จากการเข้าร่วมกิจกรรม 6 ชั่วโมง</h3>";
+                                    echo "<h3>ขอแสดงความยินดี! คุณจะได้รับทรานสคิปต์จากการเข้าร่วมกิจกรรม 3 ชั่วโมง</h3>";
                                 }
                             ?>
                             <!-- <span><i class="fa fa-thumbs-o-up fa-5x" style="color:green;"></i>
                             <p>คุณได้รับทรานสคริปต์ 3 ชั่วโมงจากการเข้าร่วมกิจกรรมตลาดนัดวัฒนธรรมทั้ง 6 โซน</p></span> -->
 
                             <div class="timer">
-                                <div class="days-wrapper" <?php if ($row['zone_1']) { echo "style='background-color:red;'";} ?> >
+                                <div class="days-wrapper" <?php if ($row['zone_0']) { echo "style='background-color:red;'";} ?> >
                                     <span class="days">ลงทะเบียน (Registration)</span><br>
+                                    <?php
+                                        if ($row['zone_0']) {
+                                            echo "<i class='fa fa-check-circle fa-4x'></i>";
+                                        } else {
+                                            echo "<i class='fa fa-times-circle fa-4x'></i>";
+                                        }
+                                    ?>
+                                </div>
+                                <div class="days-wrapper" <?php if ($row['zone_1']) { echo "style='background-color:red;'";} ?> >
+                                    <span class="days">โซน 1 - ชุดไทย <br />(Zone 1 - Dress)</span><br>
                                     <?php
                                         if ($row['zone_1']) {
                                             echo "<i class='fa fa-check-circle fa-4x'></i>";
@@ -132,7 +153,7 @@
                                     ?>
                                 </div>
                                 <div class="days-wrapper" <?php if ($row['zone_3']) { echo "style='background-color:red;'";} ?>>
-                                    <span class="days">โซน 3 - ตะลุง <br /> (Zone 3 - Talung)</span><br>
+                                    <span class="days">โซน 3 - ตลาด <br /> (Zone 3 - Market)</span><br>
                                     <?php
                                         if ($row['zone_3']) {
                                             echo "<i class='fa fa-check-circle fa-4x'></i>";
@@ -142,7 +163,7 @@
                                     ?>
                                 </div>
                                 <div class="days-wrapper" <?php if ($row['zone_4']) { echo "style='background-color:red;'";} ?>>
-                                    <span class="days">โซน 4 - เล่น <br /> (Zone 4 - Play)</span><br>
+                                    <span class="days">โซน 4 - เกมส์#1 <br /> (Zone 4 - Games#1</span><br>
                                     <?php
                                         if ($row['zone_4']) {
                                             echo "<i class='fa fa-check-circle fa-4x'></i>";
@@ -152,7 +173,7 @@
                                     ?>
                                 </div>
                                 <div class="days-wrapper" <?php if ($row['zone_5']) { echo "style='background-color:red;'";} ?>>
-                                    <span class="days">โซน 5 - สาธิต <br /> (Zone 5 - Learn)</span><br>
+                                    <span class="days">โซน 4 - เกมส์#2 <br /> (Zone 4 - Games#2)</span><br>
                                     <?php
                                         if ($row['zone_5']) {
                                             echo "<i class='fa fa-check-circle fa-4x'></i>";
@@ -162,7 +183,7 @@
                                     ?>
                                 </div>
                                 <div class="days-wrapper" <?php if ($row['zone_6']) { echo "style='background-color:red;'";} ?>>
-                                    <span class="days">โซน 6 - กิน <br /> (Zone 6 - Eat)</span><br>
+                                    <span class="days">โซน 5 - โหนด-นา-เล <br /> (Zone 5 - Node-Na-Lay)</span><br>
                                     <?php
                                         if ($row['zone_6']) {
                                             echo "<i class='fa fa-check-circle fa-4x'></i>";
@@ -172,7 +193,7 @@
                                     ?>
                                 </div>
                                 <div class="days-wrapper" <?php if ($row['zone_7']) { echo "style='background-color:red;'";} ?>>
-                                    <span class="days">โซน 7 - กิน <br /> (Zone 7 - Eat)</span><br>
+                                    <span class="days">โซน 6 - อาหาร <br /> (Zone 6 - Food)</span><br>
                                     <?php
                                         if ($row['zone_7']) {
                                             echo "<i class='fa fa-check-circle fa-4x'></i>";
@@ -182,7 +203,7 @@
                                     ?>
                                 </div>
                                 <div class="days-wrapper" <?php if ($row['zone_8']) { echo "style='background-color:red;'";} ?>>
-                                    <span class="days">โซน 8 - กิน <br /> (Zone 8 - Eat)</span><br>
+                                    <span class="days">โซน 7 - หัตถกรรม <br /> (Zone 7 - Craft)</span><br>
                                     <?php
                                         if ($row['zone_8']) {
                                             echo "<i class='fa fa-check-circle fa-4x'></i>";

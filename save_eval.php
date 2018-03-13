@@ -17,18 +17,20 @@
     // zone 9 = evaluation form
     $zone_no = 9;
     $evaluation->id = $_SESSION['id_card'];
-    // $evaluation->q1_res = $_POST['q1_res'];
-    $evaluation->q1_res = 5;
+    $evaluation->q1_res = $_POST['q1_res'];
+    //$evaluation->q1_res = 5;
 
     //$evaluation->create();
 
     // insert into evaluation table
     if ($evaluation->create()) {
         // update participant_zones table
-        header("Location: scan_qr.php?zone=9");
+        header("Location: scan_qr.php?zone=" . $zone_no);
+        exit;
     } else {
         // insert error
-        header("Location: error.php?error_no=11");
+        header("Location: error.php?error_no=13");
+        exit;
     }
 
 ?>

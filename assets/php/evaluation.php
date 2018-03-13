@@ -18,13 +18,6 @@ class Evaluation {
         $stmt = mysqli_prepare($this->conn, "INSERT INTO " . $this->table_name . " (id, q1) VALUES (?,?)");
         mysqli_stmt_bind_param($stmt, 'ss', $this->id, $this->q1_res);
 
-        // try {
-        //   mysqli_stmt_execute($stmt);
-        // } catch (\Exception $e) {
-        //   echo 'Message: ' .$e->getMessage();
-        // }
-
-
         /* execute prepared statement */
         if (mysqli_stmt_execute($stmt)) {
             return true;

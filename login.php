@@ -1,8 +1,14 @@
 <?php
     session_start();
 
-    if (isset($_SESSION['username'])) {
+    if (isset($_SESSION["username"])) {
         header("Location: index.php?zone=1&scanned=1");
+        exit;
+    }
+    if (isset($_REQUEST["zone"])) {
+        $flogin = "assets/php/login_process.php?zone=" . $_REQUEST["zone"];
+    } else {
+        $flogin = "assets/php/login_process.php";
     }
 ?>
 
@@ -14,7 +20,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Bootstrap Login Form Template</title>
+        <title>Login | ตลาดนัดวัฒนธรรม - คณะวิทยาการจัดการ</title>
 
         <!-- CSS -->
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
@@ -36,7 +42,7 @@
         <![endif]-->
 
         <!-- Favicon and touch icons -->
-        <link rel="shortcut icon" href="assets/ico/favicon.png">
+        <link rel="shortcut icon" href="assets/ico/favicon.ico">
         <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png">
         <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
         <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
@@ -77,7 +83,7 @@
                         		</div>
                             </div>
                             <div class="form-bottom">
-			                    <form role="form" action="assets/php/login_process.php" method="post" class="login-form">
+			                    <form role="form" action="<?php echo $flogin ?>" method="post" class="login-form">
 			                    	<div class="form-group">
 			                    		<label class="sr-only" for="form-username">Username</label>
 			                        	<input type="text" name="form-username" placeholder="Username..." class="form-username form-control" id="form-username">

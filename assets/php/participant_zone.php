@@ -23,6 +23,9 @@ class Participant_Zone {
     // create information
     function create(){
         switch ($this->zone) {
+          case 0:
+              $query = "INSERT INTO " . $this->table_name . " (id, zone_0, zone_0_ts, zone_0_lat, zone_0_long) VALUES (?,?,?,?,?)";
+              break;
           case 1:
               $query = "INSERT INTO " . $this->table_name . " (id, zone_1, zone_1_ts, zone_1_lat, zone_1_long) VALUES (?,?,?,?,?)";
               break;
@@ -81,6 +84,9 @@ class Participant_Zone {
     // update record - account
     function update(){
         switch ($this->zone) {
+          case 0:
+            $query = "UPDATE " . $this->table_name . " SET zone_0 = ?, zone_0_ts = ?, zone_0_lat = ?, zone_0_long = ? WHERE id = ?";
+            break;
           case 1:
             $query = "UPDATE " . $this->table_name . " SET zone_1 = ?, zone_1_ts = ?, zone_1_lat = ?, zone_1_long = ? WHERE id = ?";
             break;
@@ -146,7 +152,7 @@ class Participant_Zone {
 
     // update all_zones
     function update_all_zones() {
-        $query = "SELECT * FROM " . $this->table_name . " WHERE id = '" . $this->id . "' and zone_2 = 1 and zone_3 = 1 and zone_4 = 1 and zone_5 = 1 and zone_6 = 1 and zone_7 = 1 zone_8 = 1";
+        $query = "SELECT * FROM " . $this->table_name . " WHERE id = '" . $this->id . "' and zone_1 = 1 and zone_2 = 1 and zone_3 = 1 and zone_4 = 1 and zone_5 = 1 and zone_6 = 1 and zone_7 = 1 and zone_8 = 1";
         $result = mysqli_query($this->conn, $query);
         if ($row = mysqli_fetch_array($result)) {
             // update all_zones
@@ -154,7 +160,7 @@ class Participant_Zone {
             // statement
             $stmt = mysqli_prepare($this->conn, $query);
             // bind parameters
-            mysqli_stmt_bind_param($stmt, 'ss', $this->$zone_status, $this->id);
+            mysqli_stmt_bind_param($stmt, 'ss', $this->zone_status, $this->id);
             /* execute prepared statement */
             if (mysqli_stmt_execute($stmt)) {
                 return true;
@@ -169,6 +175,9 @@ class Participant_Zone {
     // scanned qr code alredy?
     function isScanned() {
         switch ($this->zone) {
+          case 0:
+              $query = "SELECT * FROM ". $this->table_name . " WHERE id = '" . $this->id . "' and zone_0 = 1";
+              break;
           case 1:
               $query = "SELECT * FROM ". $this->table_name . " WHERE id = '" . $this->id . "' and zone_1 = 1";
               break;
@@ -204,6 +213,25 @@ class Participant_Zone {
             return false;
         }
     }
+
+    // for testing
+    function create2(){
+        switch ($this->zone) {
+          case 0:
+              $query = "INSERT INTO test (id, zone_0, zone_0_lat, zone_0_long, zone_0_ts) VALUES (?,?,?,?,?)";
+              break;
+        }
+        // write statement
+        $stmt = mysqli_prepare($this->conn, $query);
+        mysqli_stmt_bind_param($stmt, 'sssss', $this->id, $this->zone_status, $this->latitude, $this->longitude, $this->cdate);
+
+        /* execute prepared statement */
+        if (mysqli_stmt_execute($stmt)) {
+            return true;
+        }else {
+            return false;
+        }
+    }  // function create()
 }
 
 ?>

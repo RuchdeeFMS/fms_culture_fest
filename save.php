@@ -2,7 +2,13 @@
     session_start();
 
     if (!isset($_SESSION['username'])) {
-        header("Location: login.php?zone=" . $_REQUEST['zone']);
+        if (isset($_REQUEST["zone"])) {
+            header("Location: login.php?zone=" . $_REQUEST["zone"]);
+            exit;
+        } else {
+            header("Location: error.php?error_no=11");
+            exit;
+        }
     }
 
     include_once 'assets/php/dbconnect.php';
@@ -40,29 +46,34 @@
 
         if ($participant->create()) {
             // 3. also insert into participants_zones table
-            $participant_zone->zone = 1;
+            $participant_zone->zone = 0;
             if (!$participant_zone->create()) {
                 // insert error (participant_zone)
                 header("Location: error.php?error_no=3");
+                exit;
             } else {
                 // 4. update zone, timestamp, latitude, and longitude in participants_zones table
-                if ($zone_no != 1) {
+                if ($zone_no != 0) {
                     $participant_zone->zone = $zone_no;
                     if ($participant_zone->update()) {
                         // 5. back to main page & notify with just-scanned zone msg
                         header("Location: index.php?zone=" . $zone_no . "&completed=1");
+                        exit;
                     } else {
                         // update error
                         header("Location: error.php?error_no=4");
+                        exit;
                     }
                 } else {
                     // back to main page & notify with just-scanned zone msg
                     header("Location: index.php?zone=" . $zone_no . "&completed=1");
+                    exit;
                 }
             }
         } else {
             // insert error (participant)
             header("Location: error.php?error_no=2");
+            exit;
         }
     } else {
         // 6. check whether zone's qr code is already scanned
@@ -70,16 +81,18 @@
         if ($participant_zone->isScanned()) {
             // scanned already
             header("Location: index.php?zone=" . $zone_no . "&scanned=1");
+            exit;
         } else {
             // 7. if not, update zone, timestamp, latitude, and longitude in participants_zones table
             if ($participant_zone->update()) {
                 // 8. back to main page & notify with just-scanned zone msg
                 header("Location: index.php?zone=" . $zone_no . "&completed=1");
+                exit;
             } else {
                 // update error
                 header("Location: error.php?error_no=5");
+                exit;
             }
         }
     }
-
 ?>

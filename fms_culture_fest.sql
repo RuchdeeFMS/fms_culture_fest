@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 08, 2018 at 06:55 AM
+-- Generation Time: Mar 13, 2018 at 02:09 AM
 -- Server version: 10.1.22-MariaDB
 -- PHP Version: 7.1.4
 
@@ -25,6 +25,17 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `evaluation`
+--
+
+CREATE TABLE `evaluation` (
+  `id` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `q1` tinyint(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `participants`
 --
 
@@ -41,6 +52,10 @@ CREATE TABLE `participants` (
 
 CREATE TABLE `participants_zones` (
   `id` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `zone_0` tinyint(11) NOT NULL DEFAULT '0',
+  `zone_0_ts` timestamp NULL DEFAULT NULL,
+  `zone_0_lat` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `zone_0_long` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `zone_1` tinyint(1) NOT NULL DEFAULT '0',
   `zone_1_ts` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `zone_1_lat` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
@@ -83,6 +98,12 @@ CREATE TABLE `participants_zones` (
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `evaluation`
+--
+ALTER TABLE `evaluation`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `participants`
