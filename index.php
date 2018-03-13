@@ -51,9 +51,10 @@
         <link href="https://fonts.googleapis.com/css?family=Athiti|Sriracha&amp;subset=thai" rel="stylesheet">
         <style>
             .logo-main { font-family: 'Sriracha', cursive; }
-            p, span, h2, h3, h4, button { font-family: 'Athiti', sans-serif; }
+            p, span, h2, h3, h4, button, .panel { font-family: 'Athiti', sans-serif; }
+            .modal-dialog { overflow-y: initial !important }
+            .modal-body { height: 300px; overflow-y: auto; }
         </style>
-
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -269,15 +270,148 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">แบบประเมินกิจกรรมออนไลน์</h4>
               </div>
-              <form role="form" action="error.php" method="post">
+              <form role="form" action="save_eval.php" method="post">
                 <div class="modal-body">
-                  <p>Some text in the modal.</p>
+                  <div class="panel panel-info">
+                    <div class="panel-heading"><u>ตอนที่ 1</u> ข้อมูลทั่วไปของผู้ตอบแบบสอบถาม</div>
+                    <div class="panel-body">
+                      <div class="form-horizontal">
+                        <div class="form-group">
+                          <label for="res-type" class="col-md-2">1.1.สถานภาพ</label>
+                          <div class="col-md-10">
+                            <input type="radio" class="radio-inline" id="res-type" name="res-type" value="วจก" checked> นักศึกษาคณะวิทยาการจัดการ</input>
+                            <select name="res-major" id="res-major">
+                              <option value="การเงิน" selected>สาขาการเงิน</option>
+                              <option value="การตลาด">สาขาการตลาด</option>
+                              <option value="บริหารทรัพยากรมนุษย์">สาขาบริหารทรัพยากรมนุษย์</option>
+                              <option value="ระบบสารสนเทศทางธุรกิจ">สาขาระบบสารสนเทศทางธุรกิจ</option>
+                              <option value="การจัดการโลจิสติกส์">สาขาการจัดการโลจิสติกส์</option>
+                              <option value="การจัดการ(ภาษาอังกฤษ)">สาขาการจัดการ(ภาษาอังกฤษ)</option>
+                              <option value="การจัดการประชุมฯ">สาขาการจัดการประชุมฯ</option>
+                              <option value="ภาควิชาบัญชี">ภาควิชาบัญชี</option>
+                              <option value="ภาควิชารัฐประศาสนศาสตร์">ภาควิชารัฐประศาสนศาสตร์</option>
+                            </select>
+                            <br />
+                            <input type="radio" class="radio-inline" id="res-type" name="res-type" value="ต่างคณะ"> นักศึกษาต่างคณะ</input>
+                            <input type="radio" class="radio-inline" id="res-type" name="res-type" value="อาจารย์และบุคลากร"> อาจารย์และบุคลากรมหาวิทยาลัย</input>
+                            <input type="radio" class="radio-inline" id="res-type" name="res-type" value="ทั่วไป"> บุคคลทั่วไป</input>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="res-fav" class="col-md-2">1.2.โซนกิจกรรมที่ชื่นชอบ</label>
+                          <div class="col-md-10">
+                            <input type="checkbox" class="checkbox-inline" id="res-fav" name="res-fav[]" value="1"> โซน 1 อำนวยการและชุดไทย</input>
+                            <input type="checkbox" class="checkbox-inline" id="res-fav" name="res-fav[]" value="2"> โซน 2 เวทีวัฒนธรรม</input>
+                            <input type="checkbox" class="checkbox-inline" id="res-fav" name="res-fav[]" value="3"> โซน 3 ตลาดย้อนยุค</input><br />
+                            <input type="checkbox" class="checkbox-inline" id="res-fav" name="res-fav[]" value="4"> โซน 4 เกมส์และการละเล่น</input>
+                            <input type="checkbox" class="checkbox-inline" id="res-fav" name="res-fav[]" value="5"> โซน 5 โหนด นา เล</input>
+                            <input type="checkbox" class="checkbox-inline" id="res-fav" name="res-fav[]" value="6"> โซน 6 อาหารพื้นบ้าน</input><br />
+                            <input type="checkbox" class="checkbox-inline" id="res-fav" name="res-fav[]" value="7"> โซน 7 หัตถกรรมพื้นบ้าน</input>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="panel panel-info">
+                    <div class="panel-heading"><u>ตอนที่ 2</u> ระดับความพึงพอใจ</div>
+                    <div class="panel-body">
+                      <div class="form-horizontal">
+                        <div class="form-group">
+                          <label for="res-sat2-1" class="col-md-4">2.1.การประชาสัมพันธ์การจัดงาน</label>
+                          <div class="col-md-8">
+                            <input type="radio" class="radio-inline" id="res-sat2-1" name="res-sat2-1" value="5" required> มากที่สุด</input>
+                            <input type="radio" class="radio-inline" id="res-sat2-1" name="res-sat2-1" value="4"> มาก</input>
+                            <input type="radio" class="radio-inline" id="res-sat2-1" name="res-sat2-1" value="3"> ปานกลาง</input>
+                            <input type="radio" class="radio-inline" id="res-sat2-1" name="res-sat2-1" value="2"> น้อย</input>
+                            <input type="radio" class="radio-inline" id="res-sat2-1" name="res-sat2-1" value="1"> น้อยที่สุด</input>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="res-sat2-2" class="col-md-4">2.2.ความสะดวกในการลงทะเบียน</label>
+                          <div class="col-md-8">
+                            <input type="radio" class="radio-inline" id="res-sat2-2" name="res-sat2-2" value="5" required> มากที่สุด</input>
+                            <input type="radio" class="radio-inline" id="res-sat2-2" name="res-sat2-2" value="4"> มาก</input>
+                            <input type="radio" class="radio-inline" id="res-sat2-2" name="res-sat2-2" value="3"> ปานกลาง</input>
+                            <input type="radio" class="radio-inline" id="res-sat2-2" name="res-sat2-2" value="2"> น้อย</input>
+                            <input type="radio" class="radio-inline" id="res-sat2-2" name="res-sat2-2" value="1"> น้อยที่สุด</input>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="res-sat2-3" class="col-md-4">2.3.รูปแบบการจัดงานมีความเหมาะสม</label>
+                          <div class="col-md-8">
+                            <input type="radio" class="radio-inline" id="res-sat2-3" name="res-sat2-3" value="5" required> มากที่สุด</input>
+                            <input type="radio" class="radio-inline" id="res-sat2-3" name="res-sat2-3" value="4"> มาก</input>
+                            <input type="radio" class="radio-inline" id="res-sat2-3" name="res-sat2-3" value="3"> ปานกลาง</input>
+                            <input type="radio" class="radio-inline" id="res-sat2-3" name="res-sat2-3" value="2"> น้อย</input>
+                            <input type="radio" class="radio-inline" id="res-sat2-3" name="res-sat2-3" value="1"> น้อยที่สุด</input>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="res-sat2-4" class="col-md-4">2.4.เวลาที่ใช้ในการจัดงานมีความเหมาะสม</label>
+                          <div class="col-md-8">
+                            <input type="radio" class="radio-inline" id="res-sat2-4" name="res-sat2-4" value="5" required> มากที่สุด</input>
+                            <input type="radio" class="radio-inline" id="res-sat2-4" name="res-sat2-4" value="4"> มาก</input>
+                            <input type="radio" class="radio-inline" id="res-sat2-4" name="res-sat2-4" value="3"> ปานกลาง</input>
+                            <input type="radio" class="radio-inline" id="res-sat2-4" name="res-sat2-4" value="2"> น้อย</input>
+                            <input type="radio" class="radio-inline" id="res-sat2-4" name="res-sat2-4" value="1"> น้อยที่สุด</input>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="res-sat2-5" class="col-md-4">2.5.สถานที่จัดงาน (ความเรียบร้อยและความสะดวก)</label>
+                          <div class="col-md-8">
+                            <input type="radio" class="radio-inline" id="res-sat2-5" name="res-sat2-5" value="5" required> มากที่สุด</input>
+                            <input type="radio" class="radio-inline" id="res-sat2-5" name="res-sat2-5" value="4"> มาก</input>
+                            <input type="radio" class="radio-inline" id="res-sat2-5" name="res-sat2-5" value="3"> ปานกลาง</input>
+                            <input type="radio" class="radio-inline" id="res-sat2-5" name="res-sat2-5" value="2"> น้อย</input>
+                            <input type="radio" class="radio-inline" id="res-sat2-5" name="res-sat2-5" value="1"> น้อยที่สุด</input>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="res-sat2-6" class="col-md-4">2.6.พัฒนาทักษะการเรียนรู้ศิลปวัฒนธรรมและภูมิปัญญาไทย</label>
+                          <div class="col-md-8">
+                            <input type="radio" class="radio-inline" id="res-sat2-6" name="res-sat2-6" value="5" required> มากที่สุด</input>
+                            <input type="radio" class="radio-inline" id="res-sat2-6" name="res-sat2-6" value="4"> มาก</input>
+                            <input type="radio" class="radio-inline" id="res-sat2-6" name="res-sat2-6" value="3"> ปานกลาง</input>
+                            <input type="radio" class="radio-inline" id="res-sat2-6" name="res-sat2-6" value="2"> น้อย</input>
+                            <input type="radio" class="radio-inline" id="res-sat2-6" name="res-sat2-6" value="1"> น้อยที่สุด</input>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="res-sat2-7" class="col-md-4">2.7.บูรณาการการเรียนรู้ศิลปวัฒนธรรมและภูมิปัญญาไทย</label>
+                          <div class="col-md-8">
+                            <input type="radio" class="radio-inline" id="res-sat2-7" name="res-sat2-7" value="5" required> มากที่สุด</input>
+                            <input type="radio" class="radio-inline" id="res-sat2-7" name="res-sat2-7" value="4"> มาก</input>
+                            <input type="radio" class="radio-inline" id="res-sat2-7" name="res-sat2-7" value="3"> ปานกลาง</input>
+                            <input type="radio" class="radio-inline" id="res-sat2-7" name="res-sat2-7" value="2"> น้อย</input>
+                            <input type="radio" class="radio-inline" id="res-sat2-7" name="res-sat2-7" value="1"> น้อยที่สุด</input>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="res-sat2-8" class="col-md-4">2.8.ความพึงพอใจในภาพรวมของการจัดโครงการ</label>
+                          <div class="col-md-8">
+                            <input type="radio" class="radio-inline" id="res-sat2-8" name="res-sat2-8" value="5" required> มากที่สุด</input>
+                            <input type="radio" class="radio-inline" id="res-sat2-8" name="res-sat2-8" value="4"> มาก</input>
+                            <input type="radio" class="radio-inline" id="res-sat2-8" name="res-sat2-8" value="3"> ปานกลาง</input>
+                            <input type="radio" class="radio-inline" id="res-sat2-8" name="res-sat2-8" value="2"> น้อย</input>
+                            <input type="radio" class="radio-inline" id="res-sat2-8" name="res-sat2-8" value="1"> น้อยที่สุด</input>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="panel panel-info">
+                    <div class="panel-heading"><u>ตอนที่ 3</u> ข้อคิดเห็นและข้อเสนอแนะ</div>
+                    <div class="panel-body">
+                      <div class="form-group">
+                        <textarea class="form-control" id="res-suggest" name="res-suggest"></textarea>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <div class="modal-footer">
                   <button type="submit" class="btn btn-default" id="btnSubmit">ส่งแบบประเมิน</button>
                 </div>
               </form>
-
             </div>
           </div>
         </div>
@@ -289,6 +423,17 @@
         <script src="assets/js/jquery.backstretch.min.js"></script>
         <!-- <script src="assets/js/jquery.countdown.min.js"></script> -->
         <script src="assets/js/scripts.js"></script>
+        <script>
+          $(document).ready(function() {
+            $('input[type=radio][name=res-type]').on('change', function() {
+              if (this.value == 'วจก') {
+                $( "#res-major" ).prop( "disabled", false);
+              } else {
+                $( "#res-major" ).prop( "disabled", true);
+              }
+            });
+          });
+        </script>
 
         <!--[if lt IE 10]>
             <script src="assets/js/placeholder.js"></script>

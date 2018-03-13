@@ -14,13 +14,35 @@
 
     $evaluation = new Evaluation($db);
 
+    $evaluation->id = $_SESSION['id_card'];
+    $evaluation->q1_1 = $_POST['res-type'];
+    if ($_POST['res-type'] != "วจก") {
+        $evaluation->q1_1_major = "";
+    } else {
+        $evaluation->q1_1_major = $_POST['res-major'];
+    }
+    $evaluation->q1_2 = "";
+    foreach ($_POST['res-fav'] as $fav) {
+      if ($fav == true) {
+        $evaluation->q1_2 = $evaluation->q1_2 . $fav . ",";
+      }
+    }
+    $evaluation->q2_1 = $_POST['res-sat2-1'];
+    $evaluation->q2_2 = $_POST['res-sat2-2'];
+    $evaluation->q2_3 = $_POST['res-sat2-3'];
+    $evaluation->q2_4 = $_POST['res-sat2-4'];
+    $evaluation->q2_5 = $_POST['res-sat2-5'];
+    $evaluation->q2_6 = $_POST['res-sat2-6'];
+    $evaluation->q2_7 = $_POST['res-sat2-7'];
+    $evaluation->q2_8 = $_POST['res-sat2-8'];
+    $evaluation->q3 = $_POST['res-suggest'];
+
+    // set current timezone
+    date_default_timezone_set("Asia/Bangkok");
+    $evaluation->eval_ts = date("Y/m/d H:i:s");
+
     // zone 9 = evaluation form
     $zone_no = 9;
-    $evaluation->id = $_SESSION['id_card'];
-    $evaluation->q1_res = $_POST['q1_res'];
-    //$evaluation->q1_res = 5;
-
-    //$evaluation->create();
 
     // insert into evaluation table
     if ($evaluation->create()) {

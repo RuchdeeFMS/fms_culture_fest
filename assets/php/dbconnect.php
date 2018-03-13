@@ -7,8 +7,8 @@ class Database{
     // Google Cloud Platform
     //private $passwd = "3jVuRoJ2";
     //35.226.28.132
-    //private $passwd = "vEEWyQL3d53b";
-    private $passwd = "";
+    private $passwd = "vEEWyQL3d53b";
+    //private $passwd = "";
     private $db_name = "fms_culture_fest";
     public $conn;
 
@@ -18,6 +18,7 @@ class Database{
         try{
             $this->conn = mysqli_connect($this->host, $this->user, $this->passwd, $this->db_name);
             //mysqli_query($this->conn, "SET NAMES 'utf8' COLLATE 'utf8_unicode_ci'");
+            mysqli_set_charset($this->conn, "utf8");
         }catch(Exception $exception){
             echo "Connection error: " . $exception.getMessage();
         }
