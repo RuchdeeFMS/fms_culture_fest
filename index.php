@@ -93,13 +93,18 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <?php
-                                if ($isScanned && $zone_no == 0) {
-                                    echo "<h2>คุณได้ลงทะเบียนเรียบร้อยแล้ว</h2>";
-                                } elseif ($isScanned && $zone_no <= 4) {
-                                    echo "<h2>คุณได้เข้าร่วมกิจกรรมโซน " . $zone_no . " แล้ว</h2>";
-                                } elseif ($isScanned && $zone_no > 4 && $zone_no < 9) {
-                                    $czone = $zone_no - 1;
-                                    echo "<h2>คุณได้เข้าร่วมกิจกรรมโซน " . $czone . " แล้ว</h2>";
+                                if ($isScanned && !$row['zone_9']) {
+                                    if ($isScanned && $zone_no == 0) {
+                                        echo "<h2>คุณได้ลงทะเบียนเรียบร้อยแล้ว</h2>";
+                                    } elseif ($isScanned && $zone_no <= 4) {
+                                        echo "<h2>คุณได้เข้าร่วมกิจกรรมโซน " . $zone_no . " แล้ว</h2>";
+                                    } elseif ($isScanned && $zone_no > 4 && $zone_no < 9) {
+                                        $czone = $zone_no - 1;
+                                        echo "<h2>คุณได้เข้าร่วมกิจกรรมโซน " . $czone . " แล้ว</h2>";
+                                    }
+                                } elseif ($isScanned && $row['zone_9']) {
+                                    echo "<span><i class='fa fa-thumbs-o-up fa-5x' style='color:green;'></i>
+                                    <h3>ขอแสดงความยินดี! คุณได้เข้าร่วมกิจกรรมครบทุกโซน+ประเมินกิจกรรมแล้ว</h3></span>";
                                 }
                                 if ($isCompleted && $zone_no == 0) {
                                     echo "<h2>ขอบคุณสำหรับการเข้าร่วมกิจกรรมตลาดนัดวัฒนธรรม</h2>";
@@ -111,12 +116,12 @@
                                 } elseif ($isCompleted && $zone_no == 9) {
                                     echo "<h2>ขอบคุณสำหรับการประเมินกิจกรรมตลาดนัดวัฒนธรรม</h2>";
                                 }
-                                if ($row['all_zones'] && $zone_no != 9) {
+                                if ($row['all_zones'] && !$row['zone_9']) {
                                     echo "<h3>ขอแสดงความยินดี! คุณได้เข้าร่วมกิจกรรมครบทุกโซนแล้ว</h3>";
                                     echo "<h3>ขั้นตอนสุดท้าย คลิกปุ่มด้านล่างเพื่อประเมินกิจกรรม</h3>";
                                     echo "<button class='btn btn-primary btn-lg' id='btnEval' data-toggle='modal' data-target='#evaluation-form'>ประเมินกิจกรรม</button>";
                                 } elseif ($row['all_zones'] && $zone_no == 9) {
-                                    echo "<h3>ขอแสดงความยินดี! คุณจะได้รับทรานสคิปต์จากการเข้าร่วมกิจกรรม 3 ชั่วโมง</h3>";
+                                    echo "<h3>ขอแสดงความยินดี! คุณจะได้รับทรานสคิปต์จากการเข้าร่วมกิจกรรม 6 ชั่วโมง</h3>";
                                 }
                             ?>
                             <!-- <span><i class="fa fa-thumbs-o-up fa-5x" style="color:green;"></i>
@@ -278,9 +283,9 @@
                       <div class="form-horizontal">
                         <div class="form-group">
                           <label for="res-type" class="col-md-2">1.1.สถานภาพ</label>
-                          <div class="col-md-10">
+                          <div class="col-md-5">
                             <input type="radio" class="radio-inline" id="res-type" name="res-type" value="วจก" checked> นักศึกษาคณะวิทยาการจัดการ</input>
-                            <select name="res-major" id="res-major">
+                            <select name="res-major" id="res-major" class="form-control">
                               <option value="การเงิน" selected>สาขาการเงิน</option>
                               <option value="การตลาด">สาขาการตลาด</option>
                               <option value="บริหารทรัพยากรมนุษย์">สาขาบริหารทรัพยากรมนุษย์</option>
@@ -291,10 +296,17 @@
                               <option value="ภาควิชาบัญชี">ภาควิชาบัญชี</option>
                               <option value="ภาควิชารัฐประศาสนศาสตร์">ภาควิชารัฐประศาสนศาสตร์</option>
                             </select>
-                            <br />
-                            <input type="radio" class="radio-inline" id="res-type" name="res-type" value="ต่างคณะ"> นักศึกษาต่างคณะ</input>
-                            <input type="radio" class="radio-inline" id="res-type" name="res-type" value="อาจารย์และบุคลากร"> อาจารย์และบุคลากรมหาวิทยาลัย</input>
-                            <input type="radio" class="radio-inline" id="res-type" name="res-type" value="ทั่วไป"> บุคคลทั่วไป</input>
+                          </div>
+                          <div class="col-md-5">
+                            <input type="radio" class="radio-inline" id="res-type" name="res-type" value="คณะอื่น"> นักศึกษาคณะอื่นๆ (ระบุ) </input>
+                            <input type="text" class="form-control" name="res-fac" id="res-fac" disabled />
+                          </div>
+                          <div class="col-md-2"></div>
+                          <div class="col-md-5">
+                            <input type="radio" class="radio-inline" id="res-type" name="res-type" value="อาจารย์และบุคลากร"> คณาจารย์และบุคลากรมหาวิทยาลัย</input>
+                          </div>
+                          <div class="col-md-5">
+                            <input type="radio" class="radio-inline" id="res-type" name="res-type" value="บุคคลภายนอก"> บุคคลภายนอก</input>
                           </div>
                         </div>
                         <div class="form-group">
@@ -387,13 +399,23 @@
                           </div>
                         </div>
                         <div class="form-group">
-                          <label for="res-sat2-8" class="col-md-4">2.8.ความพึงพอใจในภาพรวมของการจัดโครงการ</label>
+                          <label for="res-sat2-8" class="col-md-4">2.8.สร้างความสัมพันธ์ระหว่างคณะกับนักศึกษา</label>
                           <div class="col-md-8">
                             <input type="radio" class="radio-inline" id="res-sat2-8" name="res-sat2-8" value="5" required> มากที่สุด</input>
                             <input type="radio" class="radio-inline" id="res-sat2-8" name="res-sat2-8" value="4"> มาก</input>
                             <input type="radio" class="radio-inline" id="res-sat2-8" name="res-sat2-8" value="3"> ปานกลาง</input>
                             <input type="radio" class="radio-inline" id="res-sat2-8" name="res-sat2-8" value="2"> น้อย</input>
                             <input type="radio" class="radio-inline" id="res-sat2-8" name="res-sat2-8" value="1"> น้อยที่สุด</input>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="res-sat2-9" class="col-md-4">2.9.ความพึงพอใจในภาพรวมของการจัดโครงการ</label>
+                          <div class="col-md-8">
+                            <input type="radio" class="radio-inline" id="res-sat2-9" name="res-sat2-9" value="5" required> มากที่สุด</input>
+                            <input type="radio" class="radio-inline" id="res-sat2-9" name="res-sat2-9" value="4"> มาก</input>
+                            <input type="radio" class="radio-inline" id="res-sat2-9" name="res-sat2-9" value="3"> ปานกลาง</input>
+                            <input type="radio" class="radio-inline" id="res-sat2-9" name="res-sat2-9" value="2"> น้อย</input>
+                            <input type="radio" class="radio-inline" id="res-sat2-9" name="res-sat2-9" value="1"> น้อยที่สุด</input>
                           </div>
                         </div>
                       </div>
@@ -427,9 +449,16 @@
           $(document).ready(function() {
             $('input[type=radio][name=res-type]').on('change', function() {
               if (this.value == 'วจก') {
-                $( "#res-major" ).prop( "disabled", false);
+                $("#res-major").prop("disabled", false);
               } else {
-                $( "#res-major" ).prop( "disabled", true);
+                $("#res-major").prop("disabled", true);
+              }
+              if (this.value == 'คณะอื่น') {
+                $("#res-fac").prop("disabled", false);
+                $("#res-fac").prop("required", true);
+              } else {
+                $("#res-fac").prop("disabled", true);
+                $("#res-fac").prop("required", false);
               }
             });
           });

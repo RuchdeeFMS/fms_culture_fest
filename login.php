@@ -2,7 +2,7 @@
     session_start();
 
     if (isset($_SESSION["username"])) {
-        header("Location: index.php?zone=1&scanned=1");
+        header("Location: index.php?zone=0&scanned=1");
         exit;
     }
     if (isset($_REQUEST["zone"])) {
@@ -11,12 +11,9 @@
         $flogin = "assets/php/login_process.php";
     }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
-
     <head>
-
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -31,7 +28,7 @@
         <link href="https://fonts.googleapis.com/css?family=Athiti|Sriracha&amp;subset=thai" rel="stylesheet">
         <style>
             h1 { font-family: 'Sriracha', cursive; }
-            h2, h3, button, p, .btn { font-family: 'Athiti', sans-serif; }
+            h2, h3, button, p, .btn, .alert { font-family: 'Athiti', sans-serif; }
         </style>
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -50,7 +47,6 @@
 
     </head>
     <body>
-
         <!-- Top content -->
         <div class="top-content">
 

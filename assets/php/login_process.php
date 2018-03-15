@@ -27,7 +27,12 @@
 								$email=$staff_detail->string[13];
 
 						if (substr($staff_id,0,1) != '0'){ //���������繹ѡ�֡������staff ������� ��.�͡���
-								header("Location: ../../index.php");
+								//header("Location: ../../index.php");
+								$_SESSION['username'] = $tName;
+								$_SESSION['id_card'] = $id_card;
+								//$_SESSION['id_card'] = $staff_id
+								header("Location: ../../scan_qr.php?zone=0");
+								exit;
 						} else{
 								if ($fac_id=='F11'){
 										$_SESSION['username'] = $tName;

@@ -16,10 +16,15 @@
 
     $evaluation->id = $_SESSION['id_card'];
     $evaluation->q1_1 = $_POST['res-type'];
-    if ($_POST['res-type'] != "วจก") {
+    if ($_POST['res-type'] != "วจก" && $_POST['res-type'] != "คณะอื่น") {
         $evaluation->q1_1_major = "";
     } else {
-        $evaluation->q1_1_major = $_POST['res-major'];
+        if ($_POST['res-type'] == "วจก") {
+            $evaluation->q1_1_major = $_POST['res-major'];
+        }
+        if ($_POST['res-type'] == "คณะอื่น") {
+            $evaluation->q1_1_major = $_POST['res-fac'];
+        }
     }
     $evaluation->q1_2 = "";
     foreach ($_POST['res-fav'] as $fav) {
@@ -35,6 +40,7 @@
     $evaluation->q2_6 = $_POST['res-sat2-6'];
     $evaluation->q2_7 = $_POST['res-sat2-7'];
     $evaluation->q2_8 = $_POST['res-sat2-8'];
+    $evaluation->q2_9 = $_POST['res-sat2-9'];
     $evaluation->q3 = $_POST['res-suggest'];
 
     // set current timezone

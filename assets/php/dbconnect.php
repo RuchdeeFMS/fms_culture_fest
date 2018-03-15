@@ -7,8 +7,8 @@ class Database{
     // Google Cloud Platform
     //private $passwd = "3jVuRoJ2";
     //35.226.28.132
-    private $passwd = "vEEWyQL3d53b";
-    //private $passwd = "";
+    //private $passwd = "vEEWyQL3d53b";
+    private $passwd = "";
     private $db_name = "fms_culture_fest";
     public $conn;
 
